@@ -1,0 +1,79 @@
+{
+  "sidebar": {
+    "home": "Inicio",
+    "users": "Usuarios",
+    "customPrompt": "Prompts Personalizados",
+    "settings": "Configuración",
+    "files": "Archivos"
+  },
+  "headerUser": {
+    "configure": "Configurar usuario",
+    "logout": "Cerrar sesión"
+  },
+  "users": {
+    "title": "Gestión de Usuarios",
+    "create": "Crear Usuario",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "save": "Guardar Cambios",
+    "searchPlaceholder": "Buscar usuarios...",
+    "confirmDelete": "¿Estás seguro de que quieres eliminar este usuario?",
+    "table": {
+      "name": "Nombre Completo",
+      "username": "Usuario",
+      "email": "Correo",
+      "role": "Rol",
+      "status": "Estado",
+      "actions": "Acciones"
+    },
+    "roles": {
+      "admin": "Administrador",
+      "agent": "Agente"
+    },
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo"
+    },
+    "form": {
+      "username": "Nombre de usuario",
+      "fullName": "Nombre completo",
+      "email": "Correo electrónico",
+      "role": "Rol",
+      "password": "Contraseña",
+      "newPassword": "Nueva contraseña",
+      "passwordHint": "Dejar vacío para mantener la contraseña actual",
+      "status": "Estado"
+    },
+    "createModal": {
+      "title": "Crear Nuevo Usuario"
+    },
+    "editModal": {
+      "title": "Editar Usuario: {user}"
+    }
+  },
+  "customPrompts": {
+    "title": "Prompts Personalizados",
+    "save": "Guardar",
+    "pull": "Traer cambios",
+    "saved": "Prompt guardado",
+    "pulled": "Cambios traídos",
+    "placeholder": "Escribe tu prompt aquí..."
+  },
+  "files": {
+    "title": "Archivos subidos",
+    "noFiles": "No hay archivos subidos",
+    "download": "Descargar",
+    "delete": "Eliminar",
+    "confirmDelete": "¿Estás seguro de que quieres eliminar este archivo?",
+    "uploaded": "Archivo subido",
+    "deleted": "Archivo eliminado",
+    "uploadError": "No se pudo subir el archivo",
+    "deleteError": "No se pudo eliminar el archivo",
+    "uploadModal": {
+      "title": "Subir archivo",
+      "chooseFile": "Selecciona un archivo",
+      "uploadButton": "Subir",
+      "cancel": "Cancelar"
+    }
+  }
+}

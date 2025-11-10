@@ -1,0 +1,86 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search..."
+  },
+  "sidebar": {
+    "home": "Home",
+    "users": "Users",
+    "customPrompt": "Custom Prompts",
+    "settings": "Settings",
+    "files": "Files"
+  },
+  "headerUser": {
+    "configure": "Configure User",
+    "logout": "Logout"
+  },
+  "users": {
+    "title": "User Management",
+    "create": "Create User",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save Changes",
+    "searchPlaceholder": "Search users...",
+    "confirmDelete": "Are you sure you want to delete this user?",
+    "table": {
+      "name": "Full Name",
+      "username": "Username",
+      "email": "Email",
+      "role": "Role",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "roles": {
+      "admin": "Administrator",
+      "agent": "Agent"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "form": {
+      "username": "Username",
+      "fullName": "Full Name",
+      "email": "Email Address",
+      "role": "Role",
+      "password": "Password",
+      "newPassword": "New Password",
+      "passwordHint": "Leave empty to keep current password",
+      "status": "Status"
+    },
+    "createModal": {
+      "title": "Create New User"
+    },
+    "editModal": {
+      "title": "Edit User: {user}"
+    }
+  },
+  "customPrompts": {
+    "title": "Custom Prompts",
+    "save": "Save",
+    "pull": "Pull",
+    "saved": "Prompt saved",
+    "pulled": "Changes pulled",
+    "placeholder": "Write your prompt here..."
+  },
+  "files": {
+    "title": "Uploaded Files",
+    "noFiles": "No files uploaded",
+    "download": "Download",
+    "delete": "Delete",
+    "confirmDelete": "Are you sure you want to delete this file?",
+    "uploaded": "File uploaded",
+    "deleted": "File deleted",
+    "uploadError": "Failed to upload file",
+    "deleteError": "Failed to delete file",
+    "uploadModal": {
+      "title": "Upload file",
+      "chooseFile": "Choose a file",
+      "uploadButton": "Upload",
+      "cancel": "Cancel"
+    }
+  }
+}
