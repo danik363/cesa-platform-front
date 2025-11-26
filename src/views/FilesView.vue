@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useFilesStore } from '../store/files'
-import type { FileMeta } from '../types/file'
-import ConfirmModal from '../components/ConfirmModal.vue'
-import useToast from '../composables/useToast'
+import { useFilesStore } from '@/store/files'
+import type { FileMeta } from '@/types/file'
+import ConfirmModal from '@/components/ConfirmModal.vue'
+import useToast from '@/composables/useToast'
 
 const { t } = useI18n()
 const filesStore = useFilesStore()
@@ -93,10 +93,6 @@ async function onConfirmDelete() {
   <div class="files-shell">
     <div class="files-header">
       <h3>{{ t('files.title') }}</h3>
-      <div class="meta">
-        {{ filesStore.files.length }}
-        <span v-if="filesStore.loading" class="loading-inline"> · {{ t('common.loading') || 'Loading...' }}</span>
-      </div>
     </div>
 
     <div class="files-list" role="list">
@@ -158,32 +154,221 @@ async function onConfirmDelete() {
 </template>
 
 <style scoped>
-.files-shell{display:flex;flex-direction:column;height:100%}
-.files-header{display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0}
-.files-list{flex:1;overflow:auto;padding:0.6rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
-.file-item{display:flex;align-items:flex-start;gap:12px;padding:12px;border-radius:10px;background:#fff;border:1px solid rgba(16,24,40,0.04);box-shadow:0 6px 18px rgba(16,24,40,0.04);transition:transform .12s ease,box-shadow .12s ease}
-.file-item:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(16,24,40,0.08)}
-.file-icon{width:44px;height:44px;border-radius:8px;background:linear-gradient(180deg,#eef2ff,#eef6ff);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
-.file-body{display:flex;flex-direction:column;min-width:0}
-.file-name{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.file-meta{font-size:0.85rem;color:#6b7280;margin-top:6px}
-.file-actions{display:flex;gap:6px;margin-top:10px}
-.btn-action{padding:6px 10px;font-size:0.8rem;border-radius:6px;border:1px solid #cfd8e3;background:#fff;cursor:pointer;transition:all .12s ease}
-.btn-action:hover{background:#f3f4f6;border-color:#9ca3af}
-.btn-action.delete:hover{background:#fee2e2;border-color:#fca5a5}
-.empty{padding:1rem;color:#6b7280;text-align:center}
-.fab{position:fixed;right:24px;bottom:24px;width:52px;height:52px;border-radius:50%;background:#4f46e5;color:white;border:none;font-size:1.6rem;cursor:pointer;box-shadow:0 6px 18px rgba(79,70,229,0.18);display:flex;justify-content:center;align-items:center;outline:none}
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center}
-.modal{background:white;padding:1rem;border-radius:8px;max-width:420px;width:100%;box-shadow:0 8px 28px rgba(0,0,0,0.12)}
-.modal-actions{display:flex;justify-content:flex-end;gap:0.6rem;margin-top:1rem}
-.btn{padding:0.5rem 0.8rem;border-radius:6px;border:1px solid #cfd8e3;background:#fff;cursor:pointer}
-.btn.primary{background:#4f46e5;color:#fff;border-color:transparent}
-.loading-inline{font-size:0.9rem;color:#6b7280;margin-left:6px}
-.error{color:#b91c1c;background:#fff5f5;border:1px solid #fecaca;padding:0.5rem 0.75rem;border-radius:6px;margin:0.5rem 0}
-.spinner{display:inline-block;border:3px solid rgba(255,255,255,0.18);border-left-color:#fff;border-radius:50%;width:18px;height:18px;animation:spin .9s linear infinite;vertical-align:middle}
-.spinner.small{width:14px;height:14px;border-width:2px;border-left-color:#4f46e5}
-.card-spinner{position:absolute;right:10px;top:10px}
-.file-item{position:relative}
-@keyframes spin{to{transform:rotate(360deg)}}
+.files-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.files-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md) 0;
+}
+
+.files-list {
+  flex: 1;
+  overflow: auto;
+  padding: var(--spacing-md);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.file-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-lg);
+  background: var(--bg-primary);
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  min-width: 270px;
+}
+
+.file-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.file-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--color-primary-light), #eef6ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.file-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.file-name {
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--color-text-primary);
+}
+
+.file-meta {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  margin-top: 6px;
+}
+
+.file-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: var(--spacing-md);
+}
+
+.btn-action {
+  padding: 6px 10px;
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--bg-primary);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.btn-action:hover {
+  background: var(--bg-quaternary);
+  border-color: var(--color-text-tertiary);
+}
+
+.btn-action.delete:hover {
+  background: var(--color-error-bg);
+  border-color: var(--color-error);
+}
+
+.empty {
+  padding: var(--spacing-lg);
+  color: var(--color-text-tertiary);
+  text-align: center;
+}
+
+.fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-dark);
+  color: var(--color-white);
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: var(--bg-primary);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  max-width: 420px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.btn {
+  padding: var(--spacing-sm) 0.8rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--bg-primary);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+}
+
+.btn.primary {
+  background: var(--color-primary-dark);
+  color: var(--color-white);
+  border-color: transparent;
+}
+
+.loading-inline {
+  font-size: 0.9rem;
+  color: var(--color-text-tertiary);
+  margin-left: 6px;
+}
+
+.error {
+  color: var(--color-error);
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  margin: var(--spacing-sm) 0;
+  font-size: var(--font-size-sm);
+}
+
+.spinner {
+  display: inline-block;
+  border: 3px solid rgba(255, 255, 255, 0.18);
+  border-left-color: var(--color-white);
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  animation: spin 0.9s linear infinite;
+  vertical-align: middle;
+}
+
+.spinner.small {
+  width: 14px;
+  height: 14px;
+  border-width: 2px;
+  border-left-color: var(--color-primary);
+}
+
+.card-spinner {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.file-item {
+  position: relative;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 </style>

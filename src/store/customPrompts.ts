@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import type { CustomPrompt } from '../http/customPrompts'
-import * as promptsApi from '../http/customPrompts'
+import type { CustomPrompt } from '@/http/customPrompts'
+import * as promptsApi from '@/http/customPrompts'
 
 export const useCustomPromptsStore = defineStore('customPrompts', {
   state: () => ({

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import type { User, CreateUserPayload, UpdateUserPayload } from '../types/user'
-import * as usersApi from '../http/users'
+import type { User, CreateUserPayload, UpdateUserPayload } from '@/types/user'
+import * as usersApi from '@/http/users'
 
 export const useUsersStore = defineStore('users', {
   state: () => ({

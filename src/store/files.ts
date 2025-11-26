@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import type { FileMeta } from '../types/file'
-import * as filesApi from '../http/files'
+import type { FileMeta } from '@/types/file'
+import * as filesApi from '@/http/files'
 
 export const useFilesStore = defineStore('files', {
   state: () => ({

@@ -1,7 +1,7 @@
 <template>
   <div class="login-page">
     <div class="login-card">
-      <img src="../assets/cesa-logo-full.svg" alt="Cesa logo" class="logo" />
+      <img src="@/assets/cesa-logo-full.svg" alt="Cesa logo" class="logo" />
       <h2 class="title">Iniciar sesión</h2>
 
       <form @submit.prevent="onSubmit" class="form">
@@ -30,8 +30,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useToast } from '../composables/useToast'
+import { useRouter, useRoute } from 'vue-router'
+import { useToast } from '@/composables/useToast'
+import { useAuthStore } from '@/store/auth'
 
 const username = ref('')
 const password = ref('')
@@ -39,6 +40,7 @@ const loading = ref(false)
 const error = ref<string | null>(null)
 
 const router = useRouter()
+const route = useRoute()
 const { push: pushToast } = useToast()
 
 async function onSubmit() {
@@ -51,15 +53,16 @@ async function onSubmit() {
   }
 
   loading.value = true
+  const auth = useAuthStore()
   try {
-    // Simulate an async login process. Replace with real API call if you have one.
-    await new Promise<void>((res) => setTimeout(() => res(), 900))
-
-    // On success, show toast and navigate home.
-    router.push({ path: '/' })
-  } catch (err) {
+    await auth.login(username.value.trim(), password.value.trim())
+    pushToast('Ingreso exitoso', 'success')
+    // redirect to intended route or home
+    const redirect = route.query.redirect as string | undefined
+    router.push(redirect || '/')
+  } catch (err: any) {
     console.error('login error', err)
-    error.value = 'Error al iniciar sesión. Intente nuevamente.'
+    error.value = err?.message || 'Error al iniciar sesión. Intente nuevamente.'
     pushToast('Error en el ingreso', 'error')
   } finally {
     loading.value = false
@@ -74,16 +77,16 @@ async function onSubmit() {
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: var(--bg, #f7f9fb);
+  background: var(--bg-secondary);
 }
 
 .login-card {
   width: 380px;
   max-width: 100%;
-  background: white;
-  border-radius: 8px;
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
   padding: 28px;
-  box-shadow: 0 8px 30px rgba(20, 30, 50, 0.08);
+  box-shadow: var(--shadow-lg);
   text-align: center;
 }
 
@@ -95,14 +98,15 @@ async function onSubmit() {
 
 .title {
   margin: 6px 0 18px;
-  font-size: 18px;
-  color: #1f2937;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--spacing-md);
 }
 
 .field {
@@ -111,27 +115,31 @@ async function onSubmit() {
 
 .field label {
   display: block;
-  font-size: 13px;
-  color: #374151;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
   margin-bottom: 6px;
+  font-weight: var(--font-weight-medium);
 }
 
 .field input {
-  width: -webkit-fill-available;
-  padding: 10px 12px;
-  border-radius: 6px;
-  border: 1px solid #e5e7eb;
-  font-size: 14px;
+  width: 100%;
+  padding: var(--spacing-sm) 0.75rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  font-size: var(--font-size-sm);
+  background-color: var(--bg-primary);
+  color: var(--color-text-primary);
 }
 
 .btn {
-  background: #0f172a;
-  color: #fff;
+  background: var(--color-primary-dark);
+  color: var(--color-white);
   border: none;
-  padding: 10px 14px;
-  border-radius: 6px;
+  padding: var(--spacing-sm) 0.875rem;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
 }
 
 .btn[disabled] {
@@ -140,14 +148,17 @@ async function onSubmit() {
 }
 
 .error {
-  color: #b91c1c;
-  font-size: 13px;
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
   text-align: left;
+  padding: var(--spacing-sm);
+  background: var(--color-error-bg);
+  border-radius: var(--radius-md);
 }
 
 .note {
   margin-top: 14px;
-  font-size: 12px;
-  color: #6b7280;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
 }
 </style>

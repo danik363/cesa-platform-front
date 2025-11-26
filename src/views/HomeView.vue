@@ -18,14 +18,14 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 2rem;
+  padding: var(--spacing-2xl);
 }
 
 .welcome {
   font-size: 2rem;
-  color: #213547;
-  margin-bottom: 2rem;
-  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-2xl);
+  font-weight: var(--font-weight-semibold);
 }
 
 .logo-container {

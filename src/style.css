@@ -1,48 +1,50 @@
+@import './variables.css';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: var(--font-family);
   line-height: 1.5;
-  font-weight: 400;
+  font-weight: var(--font-weight-normal);
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--color-text-primary);
+  background-color: var(--bg-primary);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  color: #213547;
+  font-family: var(--font-family);
+  color: var(--color-text-primary);
+  background-color: var(--bg-primary);
 }
-
 
 button {
-  font-size: 1em;
-  font-weight: 500;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
   font-family: inherit;
-}
-button:hover {
-  border-color: #646cff;
+  cursor: pointer;
 }
 
-/* make the app root occupy the full viewport so the shell can use full height/width */
+button:hover {
+  border-color: var(--color-primary);
+}
+
 #app {
   height: 100vh;
   width: 100vw;
   margin: 0;
   padding: 0;
 }
-
-
-/* Utility container to let the app shell fill viewport */
-#app { height:100vh }
 

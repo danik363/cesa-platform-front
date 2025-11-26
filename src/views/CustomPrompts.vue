@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useCustomPromptsStore } from '../store/customPrompts'
-import useToast from '../composables/useToast'
+import { useCustomPromptsStore } from '@/store/customPrompts'
+import useToast from '@/composables/useToast'
 
 const { t } = useI18n()
 const promptsStore = useCustomPromptsStore()
@@ -65,12 +65,70 @@ async function pullChanges() {
   </template>
 
 <style scoped>
-.prompts-shell{display:flex;flex-direction:column;height:100%}
-.prompts-header{display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0}
-.prompts-body{display: flex; justify-content: center; width: 100%;}
-.prompts-textarea{width:100%;min-height:420px;padding:1rem;border:1px solid #e6edf3;border-radius:8px;resize:vertical;font-family:inherit}
-.prompts-footer{display:flex;justify-content:flex-end;padding-top:0.8rem}
-.btn{padding:0.5rem 0.8rem;border-radius:6px;border:1px solid #cfd8e3;background:#fff;cursor:pointer}
-.btn.small{padding:0.3rem 0.6rem}
-.btn.primary{background:#4f46e5;color:#fff;border-color:transparent}
+.prompts-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.prompts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md) 0;
+  margin-bottom: var(--spacing-lg);
+}
+
+.prompts-header h3 {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+}
+
+.prompts-body {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex: 1;
+}
+
+.prompts-textarea {
+  width: 100%;
+  min-height: 420px;
+  padding: var(--spacing-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  resize: vertical;
+  font-family: inherit;
+  background-color: var(--bg-primary);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+}
+
+.prompts-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--spacing-lg);
+}
+
+.btn {
+  padding: var(--spacing-sm) 0.8rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--bg-primary);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+}
+
+.btn.small {
+  padding: 0.3rem 0.6rem;
+}
+
+.btn.primary {
+  background: var(--color-primary-dark);
+  color: var(--color-white);
+  border-color: transparent;
+}
 </style>

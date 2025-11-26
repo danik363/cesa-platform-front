@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import HeaderUser from './components/HeaderUser.vue'
-import Sidebar from './components/Sidebar.vue'
+import HeaderUser from '@/components/HeaderUser.vue'
+import Sidebar from '@/components/Sidebar.vue'
 import { ref, onMounted, computed } from 'vue'
-import useToast from './composables/useToast'
+import useToast from '@/composables/useToast'
 import { useI18n } from 'vue-i18n'
-import ToastContainer from './components/ToastContainer.vue'
+import ToastContainer from '@/components/ToastContainer.vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()

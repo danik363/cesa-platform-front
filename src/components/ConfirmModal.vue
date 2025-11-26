@@ -36,11 +36,55 @@ function confirm() {
 </template>
 
 <style scoped>
-.confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;z-index:60}
-.confirm-modal{background:white;padding:1rem 1.25rem;border-radius:8px;max-width:420px;width:100%;box-shadow:0 12px 40px rgba(0,0,0,0.12)}
-.confirm-title{margin:0 0 0.5rem}
-.confirm-body{color:#374151;margin-bottom:1rem}
-.confirm-actions{display:flex;justify-content:flex-end;gap:0.5rem}
-.btn{padding:0.5rem 0.8rem;border-radius:6px;border:1px solid #cfd8e3;background:#fff;cursor:pointer}
-.btn.primary{background:#4f46e5;color:#fff;border-color:transparent}
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+}
+
+.confirm-modal {
+  background: var(--bg-primary);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  max-width: 420px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+}
+
+.confirm-title {
+  margin: 0 0 var(--spacing-sm);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.confirm-body {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+}
+
+.btn {
+  padding: var(--spacing-sm) 0.8rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--bg-primary);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+}
+
+.btn.primary {
+  background: var(--color-primary-dark);
+  color: var(--color-white);
+  border-color: transparent;
+}
 </style>

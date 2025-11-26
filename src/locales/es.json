@@ -1,7 +1,18 @@
 {
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "search": "Buscar...",
+    "back": "Volver",
+    "error": "Ocurrió un error"
+  },
   "sidebar": {
     "home": "Inicio",
     "users": "Usuarios",
+    "organizations": "Organizaciones",
+    "agents": "Agentes",
     "customPrompt": "Prompts Personalizados",
     "settings": "Configuración",
     "files": "Archivos"
@@ -40,6 +51,8 @@
       "email": "Correo electrónico",
       "role": "Rol",
       "password": "Contraseña",
+      "showPassword": "Mostrar contraseña",
+      "hidePassword": "Ocultar contraseña",
       "newPassword": "Nueva contraseña",
       "passwordHint": "Dejar vacío para mantener la contraseña actual",
       "status": "Estado"
@@ -74,6 +87,62 @@
       "chooseFile": "Selecciona un archivo",
       "uploadButton": "Subir",
       "cancel": "Cancelar"
+    }
+  }
+  ,
+  "agents": {
+    "title": "Agentes",
+    "create": "Crear Agente",
+    "delete": "Eliminar",
+    "created": "Agente creado",
+    "updated": "Agente actualizado",
+    "deleted": "Agente eliminado",
+    "notFound": "Agente no encontrado",
+    "nameRequired": "El nombre es obligatorio",
+    "confirmDelete": "¿Estás seguro de que quieres eliminar este agente?",
+    "table": {
+      "name": "Nombre",
+      "type": "Tipo",
+      "organization": "Organización",
+      "actions": "Acciones"
+    },
+    "form": {
+      "name": "Nombre",
+      "type": "Tipo",
+      "organization": "Organización",
+      "prompt": "Prompt",
+      "test": "Test"
+    },
+    "editModal": {
+      "title": "Editar Agente: {name}"
+    },
+    "createModal": {
+      "title": "Crear Nuevo Agente"
+    }
+  },
+  "organizations": {
+    "title": "Organizaciones",
+    "create": "Crear Organización",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "created": "Organización creada",
+    "updated": "Organización actualizada",
+    "deleted": "Organización eliminada",
+    "nameRequired": "El nombre es obligatorio",
+    "confirmDelete": "¿Estás seguro de que quieres eliminar esta organización?",
+    "table": {
+      "name": "Nombre",
+      "createdAt": "Creada",
+      "actions": "Acciones"
+    },
+    "form": {
+      "name": "Nombre"
+    },
+    "createModal": {
+      "title": "Crear Organización"
+    },
+    "editModal": {
+      "title": "Editar Organización: {name}"
     }
   }
 }

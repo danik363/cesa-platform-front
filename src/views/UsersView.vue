@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import type { User, CreateUserPayload, UpdateUserPayload } from '../types/user'
-import { useUsersStore } from '../store/users'
-import ConfirmModal from '../components/ConfirmModal.vue'
+import type { User, CreateUserPayload, UpdateUserPayload } from '@/types/user'
+import { useUsersStore } from '@/store/users'
+import ConfirmModal from '@/components/ConfirmModal.vue'
 
 const { t } = useI18n()
 
@@ -31,6 +31,19 @@ const newUser = ref<CreateUserPayload>({
   password: ''
 })
 
+// show/hide password in create modal
+const showCreatePassword = ref(false)
+function toggleShowCreatePassword() {
+  showCreatePassword.value = !showCreatePassword.value
+}
+
+// edit modal password state
+const editPassword = ref('')
+const showEditPassword = ref(false)
+function toggleShowEditPassword() {
+  showEditPassword.value = !showEditPassword.value
+}
+
 // Computed
 const filteredUsers = computed(() => {
   const term = searchTerm.value.toLowerCase()
@@ -57,9 +70,14 @@ async function createUser() {
 }
 
 async function updateUser(id: string, payload: UpdateUserPayload) {
-  await usersStore.update(id, payload)
+  // include editPassword if provided
+  const finalPayload = { ...(payload as any) }
+  if (editPassword.value) finalPayload.password = editPassword.value
+  await usersStore.update(id, finalPayload)
   showEditModal.value = false
   selectedUser.value = null
+  editPassword.value = ''
+  showEditPassword.value = false
 }
 
 function deleteUser(id: string) {
@@ -182,9 +200,18 @@ function closeConfirmUser() {
           </select>
         </div>
         
-        <div class="form-group">
+        <div class="form-group input-password">
           <label>{{ t('users.form.password') }}</label>
-          <input type="password" v-model="newUser.password" />
+          <input :type="showCreatePassword ? 'text' : 'password'" v-model="newUser.password" />
+          <button
+            type="button"
+            class="password-toggle"
+            @click="toggleShowCreatePassword"
+            :aria-label="showCreatePassword ? t('users.form.hidePassword') : t('users.form.showPassword')"
+            title="{{ showCreatePassword ? t('users.form.hidePassword') : t('users.form.showPassword') }}"
+          >
+            <i :class="showCreatePassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>
+          </button>
         </div>
 
         <div class="modal-actions">
@@ -233,9 +260,17 @@ function closeConfirmUser() {
           </select>
         </div>
         
-        <div class="form-group">
+        <div class="form-group input-password">
           <label>{{ t('users.form.newPassword') }}</label>
-          <input type="password" placeholder="********" />
+          <input :type="showEditPassword ? 'text' : 'password'" v-model="editPassword" placeholder="********" />
+          <button
+            type="button"
+            class="password-toggle"
+            @click="toggleShowEditPassword"
+            :aria-label="showEditPassword ? t('users.form.hidePassword') : t('users.form.showPassword')"
+          >
+            <i :class="showEditPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>
+          </button>
           <small>{{ t('users.form.passwordHint') }}</small>
         </div>
 
@@ -280,13 +315,13 @@ function closeConfirmUser() {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-xl);
 }
 
 .users-header .left {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: var(--spacing-xl);
 }
 
 .search {
@@ -296,9 +331,11 @@ function closeConfirmUser() {
 
 .search input {
   width: 100%;
-  padding: 0.5rem 0.5rem 0.5rem 2rem;
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 2rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-primary);
+  color: var(--color-text-primary);
 }
 
 .search i {
@@ -306,14 +343,14 @@ function closeConfirmUser() {
   left: 0.7rem;
   top: 50%;
   transform: translateY(-50%);
-  color: #6b7280;
+  color: var(--color-text-tertiary);
 }
 
 .table-container {
   flex: 1;
   overflow: auto;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
 }
 
 .users-table {
@@ -322,64 +359,65 @@ function closeConfirmUser() {
 }
 
 .users-table th {
-  background: #f9fafb;
-  padding: 0.75rem 1rem;
+  background: var(--bg-tertiary);
+  padding: var(--spacing-md) var(--spacing-lg);
   text-align: left;
-  font-weight: 600;
-  color: #374151;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
   position: sticky;
   top: 0;
 }
 
 .users-table td {
-  padding: 0.75rem 1rem;
-  border-top: 1px solid #e5e7eb;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
 }
 
 .badge {
   display: inline-block;
-  padding: 0.25rem 0.5rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 500;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
 }
 
 .badge.admin {
-  background: #fee2e2;
-  color: #991b1b;
+  background: var(--color-error-bg);
+  color: var(--color-error-text);
 }
 
 .badge.agent {
-  background: #dbeafe;
-  color: #1e40af;
+  background: var(--color-info-bg);
+  color: var(--color-info-text);
 }
 
 .badge.active {
-  background: #dcfce7;
-  color: #166534;
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
 }
 
 .badge.inactive {
-  background: #f3f4f6;
-  color: #4b5563;
+  background: var(--bg-quaternary);
+  color: var(--color-text-light);
 }
 
 .btn {
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  border: 1px solid #e5e7eb;
-  background: white;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--bg-primary);
+  color: var(--color-text-primary);
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
 }
 
 .btn.primary {
-  background: #4f46e5;
-  border-color: #4f46e5;
-  color: white;
+  background: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  color: var(--color-white);
 }
 
 .btn.icon {
@@ -387,55 +425,85 @@ function closeConfirmUser() {
 }
 
 .btn.danger {
-  color: #dc2626;
+  color: var(--color-error);
 }
 
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--bg-overlay);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .modal {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
+  background: var(--bg-primary);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
   width: 100%;
   max-width: 500px;
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-lg);
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: #374151;
+  margin-bottom: var(--spacing-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
 }
 
 .form-group input,
 .form-group select {
   width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-primary);
+  color: var(--color-text-primary);
+}
+
+.input-password {
+  position: relative;
+}
+
+.input-password input {
+  padding-right: 2.6rem;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 0.6rem;
+  top: 75%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem;
+}
+
+.password-toggle:focus {
+  outline: 2px solid var(--color-primary-light);
+  border-radius: var(--radius-sm);
 }
 
 .form-group small {
   display: block;
-  margin-top: 0.25rem;
-  color: #6b7280;
+  margin-top: var(--spacing-xs);
+  color: var(--color-text-tertiary);
 }
 
 .modal-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
 }
 </style>

@@ -1,5 +1,5 @@
 import { api } from './index'
-import type { User, CreateUserPayload, UpdateUserPayload } from '../types/user'
+import type { User, CreateUserPayload, UpdateUserPayload } from '@/types/user'
 
 export async function listUsers(): Promise<User[]> {
   if (!api.defaults.baseURL) return []

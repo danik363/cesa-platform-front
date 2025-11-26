@@ -64,6 +64,7 @@ const initials = computed(() => {
   position: relative;
   display: inline-block;
 }
+
 .user-btn {
   display: inline-flex;
   align-items: center;
@@ -73,39 +74,80 @@ const initials = computed(() => {
   border: none;
   color: inherit;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
 }
-.user-btn:focus { outline: 2px solid rgba(100,108,255,0.25); }
+
+.user-btn:focus {
+  outline: 2px solid var(--color-primary-light);
+}
+
 .avatar {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   object-fit: cover;
-  background: #d9d9d9;
+  background: var(--bg-quaternary);
   display: inline-block;
 }
+
 .avatar--fallback {
-  display:flex;align-items:center;justify-content:center;color:#fff;background:#9aa8ff;font-weight:600
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  background: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
 }
-.username { font-weight:600; margin-right:0.2rem }
-.chev { opacity:0.8 }
+
+.username {
+  font-weight: var(--font-weight-semibold);
+  margin-right: 0.2rem;
+  color: var(--color-text-primary);
+}
+
+.chev {
+  opacity: 0.8;
+}
+
 .menu {
   position: absolute;
   right: 0;
-  margin-top: 0.5rem;
+  margin-top: var(--spacing-sm);
   min-width: 180px;
-  background: var(--menu-bg, #fff);
-  color: var(--menu-color, #213547);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-  border-radius: 8px;
+  background: var(--bg-primary);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-lg);
   padding: 0.4rem;
-  z-index: 50;
+  z-index: var(--z-dropdown);
+  border: 1px solid var(--color-border);
 }
-.menu-item {
-  display:block;width:100%;text-align:left;padding:0.6rem 0.8rem;border:none;background:transparent;cursor:pointer;border-radius:6px
-}
-.menu-item:hover { background: rgba(0,0,0,0.04) }
 
-.fade-enter-active, .fade-leave-active { transition: opacity 120ms ease, transform 120ms ease }
-.fade-enter-from, .fade-leave-to { opacity: 0; transform: translateY(-6px) }
+.menu-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: var(--spacing-md) 0.8rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-normal);
+}
+
+.menu-item:hover {
+  background: var(--bg-secondary);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
 </style>

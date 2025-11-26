@@ -1,5 +1,5 @@
 import { api } from './index'
-import type { FileMeta } from '../types/file'
+import type { FileMeta } from '@/types/file'
 
 export async function listFiles(): Promise<FileMeta[]> {
   if (!api.defaults.baseURL) return []

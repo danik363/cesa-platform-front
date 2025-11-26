@@ -10,12 +10,12 @@ async function getBrowserLocale(): Promise<string> {
 
 async function loadLocaleMessages(locale: string): Promise<Record<string, any>> {
     try {
-        const mod = await import(`./locales/${locale}.json`)
+        const mod = await import(`@/locales/${locale}.json`)
         return (mod && (mod as any).default) || (mod as any) || {}
     } catch (e) {
         if (locale !== 'en') {
             try {
-                const en = await import('./locales/en.json')
+                const en = await import('@/locales/en.json')
                 return (en && (en as any).default) || (en as any) || {}
             } catch (e2) {
                 return {}
